@@ -1,0 +1,65 @@
+<%- include('../partials/nav') %>
+
+<section id="show-page">
+    <div>Airline: </div>
+    <div><%= flight.airline %></div>
+    <div>Departure: </div>
+    <div><%= flight.airport %></div>
+    <div>Flight Number: </div>
+    <div><%= flight.flightNo %></div>
+    <div>Destination:
+        
+    </div>
+    <% if (flight.destination.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% flight.destination.forEach(function(d) { %>
+            <tr>
+              <td><%= d.airport %></td>
+              <td><%= d.arrival %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h5>No Flight</h5>
+        <% } %>
+       
+        <div>Ticket: </div>
+        <% tickets.forEach(function(t) { %>
+        <div><%= t.seat %></div>
+        <div><%= t.price %></div>
+       <%  }); %>
+        <form action="/flights/<%=flight._id %>/destinations" method="POST">
+            <select name="destination">
+                <option value=""></option>
+                <option value="AUS">AUS</option>
+                <option value="DAL">DAL</option>
+                <option value="LAX">LAX</option>
+                <option value="SAN">SAN</option>
+                <option value="SEA">SEA</option>
+            </select>
+            <input type="date" name="destination">
+            <input type="submit" value="Add Destination">
+
+        </form>
+
+
+        <form action="<%= flight._id %>">
+          <button type="submit"><a href="/flights/<%= flight._id %>/tickets/new">CHOOSE A SEAT</a></button>
+        </form>
+        
+       
+      
+
+</section>
+
+
+
+<%- include('../partials/footer') %>
